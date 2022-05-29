@@ -1,10 +1,10 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from "react";
 
-import Users from './Users';
+import Users from "./Users";
 
 const UserFinder = () => {
   const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setFilteredUsers(
@@ -18,7 +18,7 @@ const UserFinder = () => {
 
   return (
     <Fragment>
-      <input type='search' onChange={searchChangeHandler} />
+      <input type="search" onChange={searchChangeHandler} />
       <Users users={filteredUsers} />
     </Fragment>
   );
