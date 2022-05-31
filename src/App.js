@@ -1,10 +1,13 @@
-import UserFinder from './components/UserFinder';
+import React from 'react';
+import BackwardCounter from './components/BackwardCounter';
+import ForwardCounter from './components/ForwardCounter';
 
 function App() {
   return (
-    <div>
-      <UserFinder />
-    </div>
+    <React.Fragment>
+      <ForwardCounter />
+      <BackwardCounter />
+    </React.Fragment>
   );
 }
 
