@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
@@ -7,30 +7,23 @@ import useHttp from "./hooks/use-http";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformedTask = useCallback((requestObj) => {
-    const loadedTasks = [];
-
-    for (const taskKey in requestObj) {
-      loadedTasks.push({ id: taskKey, text: requestObj[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-  }, []);
-
-  const httpUrl = useMemo(() => {
-    return {
-      url: "https://dummy-https-default-rtdb.firebaseio.com/tasks.json",
-    };
-  }, []);
-
-  const {
-    isLoading,
-    error,
-    sendRequest: fetchTasks,
-  } = useHttp(httpUrl, transformedTask);
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
   useEffect(() => {
-    fetchTasks();
+    const transformedTask = (requestObj) => {
+      const loadedTasks = [];
+
+      for (const taskKey in requestObj) {
+        loadedTasks.push({ id: taskKey, text: requestObj[taskKey].text });
+      }
+
+      setTasks(loadedTasks);
+    };
+
+    fetchTasks(
+      { url: "https://dummy-https-default-rtdb.firebaseio.com/tasks.json" },
+      transformedTask
+    );
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {

@@ -1,18 +1,19 @@
-import {useState, useCallback} from 'react';
+import { useState, useCallback } from "react";
 
-const useHttp = (requestConfig, applyData) => {
+const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = useCallback(async () => {
+  const sendRequest = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
-        "https://dummy-https-default-rtdb.firebaseio.com/tasks.json", {
-            method: requestConfig.method ? requestConfig.method : 'GET',
-            headers: requestConfig.headers ? requestConfig.headers : {},
-            body:requestConfig.body ? JSON.stringify(requestConfig.body) : null
+        "https://dummy-https-default-rtdb.firebaseio.com/tasks.json",
+        {
+          method: requestConfig.method ? requestConfig.method : "GET",
+          headers: requestConfig.headers ? requestConfig.headers : {},
+          body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
         }
       );
 
@@ -26,12 +27,12 @@ const useHttp = (requestConfig, applyData) => {
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
-  }, [requestConfig, applyData]);
+  }, []);
 
   return {
-      isLoading,
-      error,
-      sendRequest
+    isLoading,
+    error,
+    sendRequest,
   };
 };
 
