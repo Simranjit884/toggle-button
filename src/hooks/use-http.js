@@ -10,9 +10,9 @@ const useHttp = (requestConfig, applyData) => {
     try {
       const response = await fetch(
         "https://dummy-https-default-rtdb.firebaseio.com/tasks.json", {
-            method: requestConfig.method,
-            headers: requestConfig.headers,
-            body:JSON.stringify(requestConfig.body)
+            method: requestConfig.method ? requestConfig.method : 'GET',
+            headers: requestConfig.headers ? requestConfig.headers : {},
+            body:requestConfig.body ? JSON.stringify(requestConfig.body) : null
         }
       );
 
